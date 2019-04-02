@@ -1,0 +1,225 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no"/>
+   
+    <link rel="stylesheet" href="{% static 'css/home_grid.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_camera.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_jquery.fancybox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_jquery.mobile.structure-1.0.1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/home_jquery.mobile-1.0.1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/home_custom.css' %}" />
+
+    <script src="{% static 'js/jquery-1.7.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mobile-1.0.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.js' %}"></script>
+    <script src="{% static 'js/device.min.js' %}"></script> 
+
+
+</head>
+
+<body>
+
+        
+<div class="page">
+    <!--========================================================
+                              HEADER
+    =========================================================-->
+    <header>
+    <div class = "main_1">
+        
+        <div class="regbar" style = "margin:23px;">
+                <span class = "navbar" >
+                    <a href="#" id="userDet" onclick="return myFun();">Hi</a></h2>  
+                </span> 
+
+                <div class="userDD" style = "margin-top:20px;">
+                        <div class="arrow-up-user"></div>
+                    <div class="formholder">
+                        <div class="randompad">
+                           <fieldset>
+                             <input type="submit" id="showOrders" value="Show Orders" />
+                             <input type="submit" id="logout" value="Logout" />
+                           </fieldset>
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+
+        <div class="camera_container">
+            <div id="camera" class="camera_wrap">
+                <div data-thumb="{% static 'images/home_slide01_thumb.jpg' %}" data-src="{% static 'images/home_slide01.jpg' %}">
+                    <div class="camera_caption fadeIn">
+                    </div>
+                </div>
+                <div data-thumb="{% static 'images/home_slide02_thumb.jpg' %}" data-src="{% static 'images/home_slide02.jpg' %}">
+                    <div class="camera_caption fadeIn">
+                    </div>
+                </div>
+                <div data-thumb="{% static 'images/home_slide03_thumb.jpg' %}" data-src="{% static 'images/home_slide03.jpg' %}">
+                    <div class="camera_caption fadeIn">
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand wow fadeIn">
+                <h2 class="brand_name">
+                    <a href="">Delicious</a>
+                </h2>
+                <h2 class="restaurants">
+                    <a id = "display_rest">Show Restaurants</a>
+                </h2>
+            </div>
+        </div>
+    </header>
+    <!--========================================================
+                              CONTENT
+    =========================================================-->
+    <main>
+        <section class="well well__offset-1 bg-1">
+            <div class="container">
+                <h2><em>Our </em>Developers</h2>
+                <div class="row row__offset-1">
+                    <div class="grid_4">
+                        <figure>
+                            <div class="img lazy-img" style="padding-bottom: 101.0810810810811%;"><img data-src="{% static 'images/tejaswin.jpg' %}" alt=""></div>
+                            <figcaption>Tejaswin Kopparty</figcaption>
+                        </figure>
+                        <h3>14CS10048</br>tejaswink6@gmail.com</h3>
+                    </div>
+                    <div class="grid_4">
+                        <figure>
+                            <div class="img lazy-img" style="padding-bottom: 101.0810810810811%;"><img data-src="{% static 'images/ponnada.jpg' %}" alt=""></div>
+                            <figcaption>Ponnada Harsha Vardhan</figcaption>
+                        </figure>
+                        <h3>14CS30022</br>ponnadaharshavardhan@gmail.com</h3>
+                    </div>
+                    <div class="grid_4">
+                        <figure>
+                            <div class="img lazy-img" style="padding-bottom: 101.0810810810811%;"><img data-src="{% static 'images/palem.jpg' %}" alt=""></div>
+                            <figcaption>Palem Srikanth Reddy</figcaption>
+                        </figure>
+                        <h3>14CS30020</br>srikanthreddypalem@gmail.com</h3>
+                    </div>
+                    <div class="grid_4">
+                        <figure>
+                            <div class="img lazy-img" style="padding-bottom: 101.0810810810811%;"><img data-src="{% static 'images/mama.jpg' %}" alt=""></div>
+                            <figcaption>Mitikiri Praveen Kumar</figcaption>
+                        </figure>
+                        <h3>14CS30018</br>mpk.kumar2010@gmail.com</h3>
+                    </div>
+                    <div class="grid_4">
+                        <figure>
+                            <div class="img lazy-img" style="padding-bottom: 101.0810810810811%;"><img data-src="{% static 'images/praharsha.jpg' %}" alt=""></div>
+                            <figcaption>Praharsha Surya</figcaption>
+                        </figure>
+                        <h3>14CS10035</br>praharshasurya183@gmail.com</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+    <!--========================================================
+                              FOOTER
+    =========================================================-->
+    <footer>
+        <div class="copyright">© <span id="copyright-year"></span> |
+                <a href="#">Made with Love < 3 for DBMS assignment 3 </a>
+            </div>
+    </footer>
+
+    <section id="myModal" class="modal" style = "margin-left:25%;margin-top:100px;margin-bottom:100px;height:400px;">   
+        <div id="choisir_ville" data-role="page" data-add-back-btn="true"> 
+            <div data-role="content">
+                <div class="choice_list">
+                    <span class="close">&times;</span> 
+                    <h1 id = "select_rest"> Choose your restaurant </h1> 
+                    <ul data-role="listview" data-inset="true" data-filter="true" >
+                    {% for each, each1 in priority.items %}
+
+                        <li><a href="/get/{{ each.id }}/"  target="_top" data-transition="slidedown">{{ each.name }} [
+                            {% for x in each.cuisine.all %}
+                                {{ x.cus_type }} 
+                            {% endfor %} ]
+                            <span class="ui-li-count" > {{each1 }} </span></a> </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section><!-- /page -->
+
+    <div id="newmodeel" class="modeel">
+      <div class="modeel-content">
+        <span class="closer">&times;</span>
+        <h2 style = "margin-bottom:5px;margin-top:0px;font-size:30px;">MY ORDERS</h2>
+        <div id="showOrdersMode" style:"text-align:center;">
+            {% if status == 1 %}
+               <table style = "width:100%;">
+
+                    <tr>
+                        <td style = "font-weight:bold;">Order  Id</td>
+                        <td style = "font-weight:bold;">Order Status</td> 
+                        <td style = "font-weight:bold;">Order Price</td>
+                        <td style = "font-weight:bold;">Restaurant Name</td>
+                        <td style = "font-weight:bold;">Address</td>
+                    </tr> 
+                {% for each in orders %}
+                    <tr>
+                    {% if each.status != "completed" %}
+                        <td>{{ each.order_ID}}</td>  <td> {{each.status}}</td> <td>  {{each.price}} </td>  <td>{{each.restaurant.name}}</td>
+                        <td>{{ each.address }}</td>
+                    {% endif %}
+                    </tr>
+                {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if status != 1 %}
+                No Current Orders.
+            {% endif %}
+
+        </div>
+      
+      </div>
+    </div>
+
+
+<!-- 
+<div class="modeel-content">
+        <span class="closer">&times;</span> -->
+        <!-- <div id="showOrdersMode"> -->
+            <!-- <table id="showOrdersMode" style = "width:100%">
+                <tr>
+                    <th>Order  Id</th>
+                    <th>Order Status</th> 
+                    <th>Order Price</th>
+                    <th>Restaurant Name</th>
+                </tr> 
+            {% for each in orders %}
+                <tr>
+                <td>{{ each.order_ID}}</td>  <td> {{each.status}}</td> <td>  {{each.price}} </td>  <td>{{each.restaurant.name}}</td>
+                </tr>
+            {% endfor %} -->
+            <!-- </table> -->
+        <!-- </div> -->
+      <!-- </div> -->
+
+    <!-- </div> -->
+
+<!-- </div> -->
+<!-- </div> -->
+<script src="{% static 'js/index1.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/restaurants.js' %}"></script>
+<script src="{% static 'js/myorders.js' %}"></script>
+
+</body>
+</html>

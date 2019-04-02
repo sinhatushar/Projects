@@ -1,0 +1,220 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Restaurant Name</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-144x144-precomposed.png">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/pageres_normalize.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pageres_main.css' %}">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-1.10.1.min.js"><\/script>')</script>
+  <script src="{% static 'js/jquery.hashchange.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easytabs.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+      <![endif]-->
+</head>
+  <body class="bg-fixed bg-1">
+    <div id = "logout" style = "float:right; margin:20px;">
+      <button type="button" value="LogOut" class = "button" id="logout">Log Out</button>
+    </div>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+   <div class="main-container">
+    <div class="main wrapper clearfix">
+      <!-- Header Start -->
+        <header id="header">
+            <div id="logo">
+                <h2 style = "color:#ffffff; float:center;">
+                    {{restaurant.name}}
+                </h2>
+                <h4 style = "color:#1abc9c; margin-right:68px;;">
+                  {% for x in restaurant.cuisine.all %}
+                                {{ x.cus_type }} 
+                  {% endfor %} 
+                </h4>
+            </div>
+        </header>
+        <!-- Header End -->
+        <!-- Main Tab Container -->
+        <div id="tab-container" class="tab-container">
+          <!-- Tab List -->
+            <ul class='etabs'>
+                <li class='tab' id="tab-about">
+                  <a href="#home"><i class="icon-user"></i><span>Profile</span></a>
+                </li>
+                <li class='tab'>
+                  <a href="#orders"><i class="icon-file-text"></i><span>Orders</span></a>
+                </li>
+                <li class='tab'>
+                  <a href="#portfolio"><i class="icon-heart"></i><span>Update Menu</span></a>
+                </li>
+                <li class='tab'>
+                  <a href="#contact"><i class="icon-envelope"></i><span>Set Order Status</span></a>
+                </li>
+            </ul>
+          <!-- End Tab List -->
+            <div id="tab-data-wrap">
+              <!-- About Tab Data -->
+                <!-- The Change -->
+                <div id="home">
+                    <div class = "data_res">
+                      <table style="width:100%">
+                        <tr>
+                          <th>Name</th>
+                          <th>{{restaurant.name}}</th> 
+                          <!-- <th>Age</th> -->
+                        </tr>
+                        <tr>
+                          <td>Phone number.</td>
+                          <td>{{restaurant.phone_number}}</td> 
+                          <!-- <td>50</td> -->
+                        </tr>
+                        <tr>
+                          <td>Location</td>
+                          <td>{{restaurant.location}}</td> 
+                          <!-- <td>94</td> -->
+                        </tr>
+                      </table>
+                    </div>
+                    <!-- <div class = "data_res"> Name:&nbsp &nbsp &nbsp {{restaurant.name}}</div> 
+                    <div class = "data_res"> Phone No. &nbsp &nbsp &nbsp  {{restaurant.phone_number}} </div>
+                    <div class = "data_res"> Location: &nbsp &nbsp &nbsp {{restaurant.location}} </div> -->
+                </div>
+              <!-- End About Tab Data -->
+              <!-- Resume Tab Data -->
+                <div id="orders">
+                  <div class = "data_res">
+                    <table style="width:100%;">
+                    <!-- Display all the orders here// </br>Sorted in Least Recently placed -->
+                    
+                      <tr>
+                        <th>Order  Id</th>
+                        <th>Order Price</th> 
+                        <th>Customer Name</th>
+                        <th>Items List</th>
+                        <th>Address</th>
+                      </tr>  
+                    {% for each in orders %}
+                     <tr>
+                      {% if each.status != "completed" %}
+                      <td>{{ each.order_ID }}</td> <td>{{ each.price }}</td> <td>{{ each.customer.name }}</td>
+                      <td>
+                        {% for x in orderitems %}
+                            {% if x.order == each %}
+                                {{ x.item.name}} - {{ x.quantity }}  </br>
+                            {% endif %}
+                        {% endfor %}
+                      </td> 
+                      <td>{{ each.address }}</td>
+                     </tr> 
+
+                      {% endif %}
+                    {% endfor %}
+                    </table>
+                  </div>
+                </div>
+              <!-- End Resume Tab Data -->
+              <!-- Portfolio Tab Data -->
+                <div id="portfolio">
+                  <div id="tab-container1" class="tab-container1">
+                    <ul class='etabs'>
+                        <li class='tab' id="tab-add">
+                          <a href="#add_item"><i class="icon-user"></i><span>Add Item</span></a>
+                        </li>
+                        <li class='tab' id="tab-delete">
+                          <a href="#delete_item"><i class="icon-file-text"></i><span>Delete Item</span></a>
+                        </li>
+                    </ul>
+                    <div id="tab-data-wrap1">
+                    <!-- About Tab Data -->
+                      <div id="add_item" class = "formholder">
+                          <form id="addForm" action="/additem/" method="post">
+                            {% csrf_token %}
+                          <p> 
+                            <label for="name" class="uname" > Item Name </label>
+                            <input id="item" name="item" required="required" type="text" placeholder="Item Name"/>
+                          </p>
+                          <p> 
+                              <label for="cost" class="cost" > Item Cost </label>
+                              <input id="number" name="number" type="number" placeholder="eg. 1232" /> 
+                          </p>
+                          <p> 
+                            <label for="name" class="uname" > Item Type </label>
+                            <input id="itemType" name="itemType" required="required" type="text" placeholder="NV, V, B, D"/>
+                          </p>
+                          <p class = "agreement form-group">
+                            <label id="err" style="color:red; display:none;" for="agree">Error</label>
+                          </p>
+                          <p class="add_btn"> 
+                            <input type="submit" value="Add Item" /> 
+                          </p>
+                        </form>
+                      </div>
+
+                      <div id="delete_item">
+                        <form id="deleteForm" action="/deleteitem/" method="post" class = "formholder1">
+                          {% csrf_token %}
+                          <label for="name" class="uname" > Item Name </label>
+                        <input id="itemND" name="itemND" required="required" type="text" placeholder="Item To Delete"/>
+                        <p class = "agreement form-group">
+                          <label id="err1" style="color:red; display:none;" for="agree">Error</label>
+                        </p>
+                        <input type="submit" value="Delete Item" />
+                      </form>
+                      </div>
+                    </div>
+                   </div>
+              </div>
+              <!-- End Portfolio Data -->
+              <!-- Contact Tab Data -->
+                <div id="contact">
+                    <div id = "cus_order1">
+                        <form id="setForm" action="/setstatus/" method="post" class = "formholder2"> 
+                          {% csrf_token %}
+                        <p> 
+                            <label for="orderNo" class="orderNo" > Order No. </label>
+                            <input id="orderNo" name="orderNo" required="required" type="number" placeholder="Order No."/>
+                          </p>
+                          <p> 
+                            <label for="status" class="status" > Status </label>
+                            <input id="status" name="status" required="required" type="text" placeholder="Placed"/>
+                          </p>
+                          <p class = "agreement form-group">
+                            <label id="err2" style="color:red; display:none;" for="agree">Error</label>
+                          </p>
+                        <input type="submit" value="Set Status" />
+                        <form/>
+                      </br>
+                    </div>                    
+                </div>
+              <!-- End Contact Data -->
+            </div>
+        </div>
+        <!-- End Tab Container -->
+        <footer>
+          {{ restaurant.name }}
+        </footer>
+    </div><!-- #main -->
+</div><!-- #main-container -->
+
+
+
+</body>
+</html>

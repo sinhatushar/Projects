@@ -1,0 +1,296 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Delicious</title>
+    <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+    
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Satisfy|Bree+Serif|Candal|PT+Sans">
+    <link rel="stylesheet" type="text/css" href="{% static 'rs_css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'rs_css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'rs_css/style.css' %}">
+  </head>
+  <body>
+    <!--banner-->
+    <section id="banner">
+      <div class="bg-color">
+        <header id="header">
+            <div class="container">
+                <div id="mySidenav" class="sidenav">
+                  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                  <a href="#about">About</a>
+                  <a href="#event">Special Dishes</a>
+                  <a href="#menu-list">Place Order</a>
+                  <a href="#contact">Go to Cart</a>
+                  <a href="#logout">Log Out</a>
+                </div>
+                <!-- Use any element to open the sidenav -->
+                <span onclick="openNav()" class="pull-right menu-icon">☰</span>
+            </div>
+        </header>
+        <div class="container">
+        <div class="row">
+          <div class="inner text-center">
+            <h1 class="logo-name">{{ restaurant.name }}</h1>
+            <!-- <h2>Restaurant Address</h2>
+            <p style = "font-family: lucida;">Phone number</p> -->
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+    <!-- / banner -->
+    <!--about-->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center marb-35">
+                    <h1 class="header-h">Restaurant Details</h1>
+                    <!-- <p class="header-p">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+                    <br>nibh euismod tincidunt ut laoreet dolore magna aliquam. </p> -->
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="about-info">
+                            <h2 class="heading" style=" float:center;"> 
+                                {{ restaurant.name }}</h2>
+                            <p>Recognised by Fab Five</p>
+                            <div class="details-list">
+                                <ul>
+                                    <li><i class="fa fa-check"></i>Address : {{ restaurant.location }}</li>
+                                    <li><i class="fa fa-check"></i>Email : {{ usr.username }}</li>
+                                    <li><i class="fa fa-check"></i>Contact No. : {{ restaurant.phone_number }}</li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <img src="{% static 'rs_images/res01.jpg' %}" alt="" class="img-responsive">
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </section>
+    <!--/about-->
+    <!-- event -->
+    <section id="event">
+        <div class="bg-color" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-center" style="padding:60px;">
+                      <h1 class="header-h">Most rated </h1>
+                      <p class="header-p">Special Feature Designed by Fab Five</p>
+                    </div>
+                    <div class="col-md-12" style="padding-bottom:60px;">
+                        <div class="item active left">
+                          <div class="col-md-6 col-sm-6 left-images">
+                           <img src="{% static 'rs_images/res02.jpg' %}" class="img-responsive">
+                         </div>
+                         <div class="col-md-6 col-sm-6 details-text">
+                          <div class="content-holder">
+                            <h2>Dish name</h2>
+                            <p><b>{{ items.first.name }}</b> is a mouth watering item specially prepared by {{ restaurant.name }}
+                                Many customers have show interest in this dish.</p>
+                            <address>
+                              <strong>Name: </strong>
+                              {{ items.first.name }}
+                              <br>
+                              <strong>Price: </strong>
+                              &#8377 {{ items.first.price }}
+                            </address>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ event -->
+    <!-- menu -->
+    <section id="menu-list" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center marb-35">
+                    <h1 class="header-h">Menu List</h1>
+                    <p class="header-p"> The below list contains all the items available in this restaurant</p>
+                </div>
+                <div class="col-md-12  text-center gallery-trigger">
+                    <ul>
+                        <li><a class="filter" data-filter=".category-1">Veg</a></li>
+                        <li><a class="filter" data-filter=".category-2">Non Veg</a></li>
+                        <li><a class="filter" data-filter=".category-3">Desserts</a></li>
+                        <li><a class="filter" data-filter=".category-4">Beverages</a></li>
+                    </ul>
+                </div>
+                <div id="Container">
+                <form>
+                  {% csrf_token %}
+                  {% for item in items%}
+                    {% if item.item_type == 'V' %}
+                      <div class="mix category-1 menu-restaurant" data-myorder="2">
+                    {% elif item.item_type == 'NV' %}
+                      <div class="mix category-2 menu-restaurant" data-myorder="2">
+                    {% elif item.item_type == 'D' %}
+                      <div class="mix category-3 menu-restaurant" data-myorder="2">
+                    {% else %}
+                      <div class="mix category-4 menu-restaurant" data-myorder="2">
+                    {% endif %}
+                      <span class="clearfix">
+                        <a class="menu-title" href="#" data-meal-img="assets/img/restaurant/rib.jpg">{{item.name}}</a>
+                        <div class="quantity" id="itemQuant">
+                          <button class="minus-btn" type="button" name="button">
+                            <img src="{% static 'rs_images/minus.svg' %}" alt="" />
+                          </button>
+                          <input id="itemVal" type="text1" name="name" value="0">
+                          <button class="plus-btn" type="button" name="button">
+                           <img src="{% static 'rs_images/plus.svg' %}" alt="" />
+                          </button>
+                        </div>
+                        
+                        <span class="menu-price">&#8377 {{item.price}}</span>
+                    </div>
+                  {% endfor %}
+                </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ menu -->
+    <!-- contact -->
+    
+    
+
+    <section id="contact" class="section-padding">
+        <div class="container">
+
+            <div class="row msg-row">
+                <div class="col-md-4 col-sm-4 mr-15">
+                    <div class="media-2" style = "float:left;">
+                        <div class="media-left">
+                            <div class="contact-phone bg-1 text-center"><span class="phone-in-talk fa fa-phone"></span></div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="dark-blue regular">Phone Numbers</h4>
+                            <p class="light-blue regular alt-p">{{restaurant.phone_number}} - <span class="contacts-sp">Phone Booking</span></p>
+                        </div>
+                    </div>
+                    <div class="media-2" style = "float:right;">
+                        <div class="media-left">
+                            <div class="contact-email bg-14 text-center"><span class="hour-icon fa fa-clock-o"></span></div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="dark-blue regular">Opening Hours</h4>
+                            <p class="light-blue regular alt-p"> Monday to Friday 09.00 - 24:00</p>
+                            <p class="light-blue regular alt-p">
+                                 Friday and Sunday 08:00 - 03.00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <form action="" method="post" role="form" class="contactForm">
+                    <div class="col-md-12 btnpad">
+                        <div class="contacts-btn-pad">
+                            <a id="cart_btn" style = "padding:15px; margin-left:18%;"> Go to Cart</a>
+                        </div>
+                    </div>
+                    </form>
+
+                    <!-- The mymodal -->
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                            <div class="itemsDisplay">No Items in Cart :(</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id = "logout" style = "float:right;">
+                <div class="contacts-btn-pad">
+                    <a id="logout_btn" style = "padding:15px; margin-left:18%;"> Logout</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer text-center">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 text-center">
+                    <div class="widget">
+                        <h4 class="widget-title">{{ restaurant.name }}</h4>
+                        <address>{{ restaurant.location }}</address>
+                        <p class="copyright clear-float">
+                            © All Rights Reserved to Fab Five
+                            <div class="credits">
+                                Designed by </br>
+                                Harsha Vardhan 14CS30022 </br>
+                                Praveen 14CS30018 </br>
+                                Srikanth 14CS30020 </br>
+                                Praharsha 14CS10035 </br>
+                                Tejaswin 14CS10048 </br>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="res_id2" style="display: none;">{{ restaurant.id }}</div>
+    </footer>
+    <!-- / footer -->
+        
+    <script src="{% static 'rs_js/jquery.min.js' %}"></script>
+    <script src="{% static 'rs_js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'rs_js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'rs_js/jquery.mixitup.min.js' %}"></script>
+    <script src="{% static 'rs_js/custom.js' %}"></script>
+    <script src="{% static 'rs_js/display_cart.js' %}"></script>
+    <!-- <script src="contactform/contactform.js"></script> -->
+    <script type="text/javascript">
+      $('.minus-btn').on('click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $input = $this.closest('div').find('input');
+            var value = parseInt($input.val());
+
+            if (value > 1) {
+                value = value - 1;
+            } else {
+                value = 0;
+            }
+
+        $input.val(value);
+
+        });
+
+        $('.plus-btn').on('click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $input = $this.closest('div').find('input');
+            var value = parseInt($input.val());
+
+            if (value < 100) {
+            value = value + 1;
+            } else {
+                value =100;
+            }
+
+            $input.val(value);
+        });
+
+      $('.like-btn').on('click', function() {
+        $(this).toggleClass('is-active');
+      });
+    </script> 
+</body>
+</html>
