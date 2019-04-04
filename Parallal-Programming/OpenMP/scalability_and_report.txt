@@ -1,0 +1,78 @@
+SYSTEM SPECIFICATION:
+
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    2
+Core(s) per socket:    2
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 78
+Model name:            Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz
+Stepping:              3
+CPU MHz:               750.281
+CPU max MHz:           2800.0000
+CPU min MHz:           400.0000
+BogoMIPS:              4799.84
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              3072K
+NUMA node0 CPU(s):     0-3
+
+
+SCALABILITY:
+TIME CALCULATION:
+NOTE: Time mentioned below is in seconds.
+
+
+Thread(s) used= 1
+Total time for calculating half velocity = 20.641207
+Total time for calculating next position = 29.717864
+Total time for calculating force = 65.066924
+Total time for calculating next velocity = 20.650385
+Total time for doing all the calculations = 136.076380
+Total time for executing the program including reading and writing to the file as well  = 166.536161
+
+
+Thread(s) used= 2
+Total time for calculating half velocity = 12.849166
+Total time for calculating next position = 18.759970
+Total time for calculating force = 36.066681
+Total time for calculating next velocity = 12.807934
+Total time for doing all the calculations = 80.483752
+Total time for executing the program including reading and writing to the file as well  = 118.045556
+
+
+Thread(s) used= 4
+Total time for calculating half velocity = 12.811992
+Total time for calculating next position = 19.262654
+Total time for calculating force = 30.129809
+Total time for calculating next velocity = 12.955081
+Total time for doing all the calculations = 75.159537
+Total time for executing the program including reading and writing to the file as well  = 122.588352
+
+
+Thread(s) used= 8
+Total time for calculating half velocity = 41.394905
+Total time for calculating next position = 47.908710
+Total time for calculating force = 144.801145
+Total time for calculating next velocity = 41.783493
+Total time for doing all the calculations = 275.888253
+Total time for executing the program including reading and writing to the file as well  = 314.227077
+
+
+REPORT :
+I have used a O(T*N) algorithm to calculate the force between all the particles at an instace instead of an O(T*N^2) algorithm. To calcualte the force between a particle 'i' and all other particles, I calculate the centre of mass of other 999 particels in O(1) (after a precalculation of O(N) ) and then calculate the force between a mass of 999kg mass located at the centre of mass of other 999 particles and 1 kg mass located at its original location.
+As the mass of all partilcles is same, the centre of mass of 999 particles is r= sigma(r_k)/999 for all k!=i.
+Now I first calculate the value of sigma(r_k) for k=1 to 1000 in O(N) time and then do 999*r-r_i which equals  sigma(r_k) for k!=i.
+
+I haven't used an O(T*N^2) agortihm because with the given constraints it will take nearly 10^12 operations to execute and it will roughly take 3 hrs to run the code once. I have instead used the trick described above. This trick can only be applied when the masses of all the particles are the same. 
+
+SCALABILITIY: 
+Certainly, this O(T*N) implementation is much more efficient than the O(T*N^2) algorithm, as described by the algorithmic complexity. However this code, as implemented by me, doesn't produce the expected results. In fact, the charts show that the best execution time is obtained with 4 threads and then times of execution of the same algorithm tend to increase, with increasing the number of threads. Most probably these results are due from the adopted load distribution policy (static distribution, each processor has the same number of arbitrarily distributed particles).
